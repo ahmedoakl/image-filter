@@ -48,3 +48,5 @@ Add your own domain name and have it point to the running services (try adding a
 > !NOTE: Domain names are not included in AWS’ free tier and will incur a cost.
 
 The created endpoint URL: image-filter2-dev.us-east-1.elasticbeanstalk.com/filteredimage
+
+The GitHub repository URL: https://github.com/ahmedoakl/image-filter
