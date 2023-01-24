@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Router, Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import {filterImageFromURL, deleteLocalFiles} from './util/util';
 
@@ -27,6 +27,27 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
   // RETURNS
   //   the filtered image file [!!TIP res.sendFile(filteredpath); might be useful]
 
+  app.get( "/filteredimage/", 
+  async ( req: Request, res: Response ) => {
+    let { image_url } = req.query;
+
+    if ( !image_url ) {
+      return res.status(400)
+                .send(`image_url is required`);
+    }
+
+    const filtered_image = await filterImageFromURL(image_url);
+
+     return res.status(200).sendFile(filtered_image, 
+      () => {
+       deleteLocalFiles([filtered_image]);
+      }
+     );
+    //return res.status(201).send({url: filtered_image});
+
+    // return res.status(200)
+    //           .send(`Welcome to the Cloud, ${image_url}!`);
+  } );
   /**************************************************************************** */
 
   //! END @TODO1
